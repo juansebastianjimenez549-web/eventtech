@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10243b">
+  <title>EventTech | Gestión para eventos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="EventTech, inicio" data-page="dashboard">
+        <span class="brand-mark"><span class="brand-letter">E</span><span class="brand-spark">+</span></span>
+        <span class="brand-copy"><strong>Eventtech</strong><small>GESTIÓN DE EVENTOS</small></span>
+      </a>
+      <div class="workspace-label">ESPACIO DE TRABAJO</div>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <button class="nav-link active" data-page="dashboard"><span class="nav-icon" data-icon="dashboard"></span>Resumen</button>
+        <button class="nav-link" data-page="inventario"><span class="nav-icon" data-icon="inventory"></span>Inventario</button>
+        <button class="nav-link" data-page="cotizaciones"><span class="nav-icon" data-icon="quote"></span>Cotizaciones</button>
+        <button class="nav-link" data-page="reservas"><span class="nav-icon" data-icon="calendar"></span>Calendario &amp; reservas</button>
+        <button class="nav-link" data-page="pagos"><span class="nav-icon" data-icon="payments"></span>Pagos</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><span class="help-spark" data-icon="help"></span><strong>¿Necesitas ayuda?</strong><p>Estamos aquí para acompañarte.</p><button data-action="help">Centro de ayuda <span>↗</span></button></div>
+        <button class="profile-button"><span class="avatar">MC</span><span class="profile-copy"><strong>María Camila</strong><small>Administradora</small></span><span class="profile-more">···</span></button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú"><span data-icon="menu"></span></button>
+        <div class="breadcrumbs"><span>Valle del Cauca</span><span class="crumb-divider">/</span><strong id="breadcrumbCurrent">Resumen</strong></div>
+        <div class="topbar-actions"><span class="today-date" id="todayDate"></span><button class="icon-button notification-button" aria-label="Notificaciones"><span data-icon="bell"></span><i></i></button><span class="top-avatar">MC</span></div>
+      </header>
+
+      <div class="page-container">
+        <section class="page-view active" id="page-dashboard">
+          <div class="page-heading dashboard-heading">
+            <div><div class="eyebrow"><span class="eyebrow-dot"></span> JUEVES, 16 DE OCTUBRE DE 2026</div><h1>¡Hola, María Camila! <span class="wave">✳</span></h1><p>Este es el resumen de tu negocio. Esto es lo que está pasando hoy.</p></div>
+            <button class="button button-primary" data-action="new-quote"><span>＋</span> Nueva cotización</button>
+          </div>
+          <div class="metrics-grid">
+            <article class="metric-card"><div class="metric-top"><span>Total cotizaciones</span><span class="metric-icon aqua" data-icon="quote"></span></div><div class="metric-value" id="metricQuotes">—</div><div class="metric-foot"><span class="metric-trend positive"><span data-icon="trend"></span> 12.5%</span><span>vs. mes anterior</span></div></article>
+            <article class="metric-card"><div class="metric-top"><span>Reservas activas</span><span class="metric-icon lavender" data-icon="calendar"></span></div><div class="metric-value" id="metricReservations">—</div><div class="metric-foot"><span class="metric-trend positive"><span data-icon="trend"></span> 8.2%</span><span>vs. mes anterior</span></div></article>
+            <article class="metric-card"><div class="metric-top"><span>Pagos pendientes</span><span class="metric-icon amber" data-icon="clock"></span></div><div class="metric-value" id="metricPending">—</div><div class="metric-foot"><span class="metric-trend neutral">En seguimiento</span><span id="pendingCount"></span></div></article>
+            <article class="metric-card"><div class="metric-top"><span>Pagos recibidos</span><span class="metric-icon green" data-icon="payments"></span></div><div class="metric-value" id="metricReceived">—</div><div class="metric-foot"><span class="metric-trend positive">Este mes</span><span>Ingresos confirmados</span></div></article>
+          </div>
+          <div class="dashboard-grid">
+            <article class="panel chart-panel">
+              <div class="panel-heading"><div><h2>Ingresos del negocio</h2><p>Seguimiento de tus pagos recibidos</p></div><select id="chartPeriod" class="select-compact" aria-label="Periodo del gráfico"><option value="6">Últimos 6 meses</option><option value="4">Últimos 4 meses</option></select></div>
+              <div class="chart-legend"><span><i class="legend-dot turquoise"></i>Ingresos</span><span><i class="legend-dot pale"></i>Meta mensual</span></div>
+              <div class="chart-wrap"><div class="y-labels"><span>$8M</span><span>$6M</span><span>$4M</span><span>$2M</span><span>$0</span></div><div class="bar-chart" id="revenueChart"></div></div>
+            </article>
+            <article class="panel status-panel">
+              <div class="panel-heading"><div><h2>Estado de pagos</h2><p>Distribución de tus cobros</p></div><button class="text-button" data-page="pagos">Ver pagos <span>→</span></button></div>
+              <div class="donut-area"><div class="donut" id="paymentDonut"><div class="donut-center"><strong id="donutCount">0</strong><span>registros</span></div></div><div class="donut-legend" id="paymentLegend"></div></div>
+              <div class="insight-box"><span data-icon="spark"></span><p><strong id="paymentInsight">¡Buen trabajo!</strong><br>Revisa los pagos pendientes para mantener tus cuentas al día.</p></div>
+            </article>
+          </div>
+          <article class="panel recent-panel">
+            <div class="panel-heading"><div><h2>Actividad reciente</h2><p>Últimas cotizaciones de tu negocio</p></div><button class="text-button" data-page="cotizaciones">Ver todas <span>→</span></button></div>
+            <div class="table-scroll"><table><thead><tr><th>CLIENTE</th><th>EVENTO</th><th>FECHA</th><th>VALOR</th><th>ESTADO</th><th></th></tr></thead><tbody id="recentQuotes"></tbody></table></div>
+          </article>
+        </section>
+
+        <section class="page-view" id="page-inventario">
+          <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span> ADMINISTRACIÓN</div><h1>Inventario</h1><p>Controla tus artículos y disponibilidad en un solo lugar.</p></div><button class="button button-primary" data-action="add-item"><span>＋</span> Agregar artículo</button></div>
+          <div class="inventory-summary" id="inventorySummary"></div>
+          <article class="panel inventory-panel">
+            <div class="panel-heading inventory-toolbar"><div><h2>Catálogo de artículos</h2><p><span id="inventoryCount">0</span> artículos en tu inventario</p></div><div class="filter-tools"><label class="search-box"><span data-icon="search"></span><input id="inventorySearch" type="search" placeholder="Buscar artículo..." aria-label="Buscar artículo"></label><select id="filterCategory" aria-label="Filtrar por categoría"><option value="">Categoría: Todas</option></select><select id="filterType" aria-label="Filtrar por tipo"><option value="">Tipo: Todos</option></select><select id="filterColor" aria-label="Filtrar por color"><option value="">Color: Todos</option></select><button class="button button-light clear-filters" id="clearFilters">Limpiar</button></div></div>
+            <div class="table-scroll"><table><thead><tr><th>ARTÍCULO</th><th>CATEGORÍA</th><th>TIPO</th><th>COLOR</th><th>DIMENSIONES</th><th>EXISTENCIAS</th><th>TARIFA / DÍA</th><th>ESTADO</th></tr></thead><tbody id="inventoryRows"></tbody></table></div>
+          </article>
+        </section>
+
+        <section class="page-view" id="page-cotizaciones">
+          <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span> GESTIÓN COMERCIAL</div><h1>Cotizaciones</h1><p>Crea propuestas a la medida y dales seguimiento.</p></div><button class="button button-primary" data-action="new-quote"><span>＋</span> Nueva cotización</button></div>
+          <div class="quote-summary" id="quoteSummary"></div>
+          <article class="panel"><div class="panel-heading"><div><h2>Todas las cotizaciones</h2><p>Consulta el detalle y estado de cada propuesta.</p></div><label class="search-box"><span data-icon="search"></span><input type="search" id="quoteSearch" placeholder="Buscar cliente o código..." aria-label="Buscar cotización"></label></div><div class="table-scroll"><table><thead><tr><th>CÓDIGO</th><th>CLIENTE</th><th>EVENTO</th><th>FECHA</th><th>VALOR</th><th>PAGO</th><th>ESTADO</th><th></th></tr></thead><tbody id="quoteRows"></tbody></table></div></article>
+        </section>
+
+        <section class="page-view" id="page-reservas">
+          <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span> MOTOR DE DISPONIBILIDAD</div><h1>Calendario &amp; reservas</h1><p>Consulta eventos y disponibilidad de artículos antes de confirmar.</p></div><button class="button button-primary" data-action="new-reservation"><span>＋</span> Nueva reserva</button></div>
+          <div class="reservation-summary" id="reservationSummary"></div>
+          <article class="panel calendar-panel">
+            <div class="panel-heading calendar-toolbar"><div><h2>Agenda de eventos</h2><p id="calendarSubtitle">Disponibilidad del mes seleccionado</p></div><div class="calendar-actions"><button class="calendar-arrow" id="calendarPrevious" aria-label="Mes anterior">‹</button><strong id="calendarHeading"></strong><button class="calendar-arrow" id="calendarNext" aria-label="Mes siguiente">›</button><select id="calendarView" class="select-compact" aria-label="Vista de calendario"><option value="month">Mes</option><option value="day">Día</option></select></div></div>
+            <div class="calendar-legend"><span><i class="legend-dot calendar-free"></i>Disponible</span><span><i class="legend-dot calendar-busy"></i>Con reservas</span><span><i class="legend-dot calendar-full"></i>Sin stock</span></div>
+            <div class="calendar-layout"><div class="calendar-grid-wrap"><div class="calendar-grid" id="calendarGrid"></div></div><aside class="selected-day-panel"><div class="selected-day-heading"><div><span>FECHA SELECCIONADA</span><strong id="selectedDateLabel"></strong></div><span class="selected-day-count" id="selectedDayCount">0</span></div><div class="availability-callout" id="availabilityCallout"></div><div class="day-events" id="dayEvents"></div><button class="button button-light selected-day-add" data-action="new-reservation">＋ Agendar en esta fecha</button></aside></div>
+          </article>
+          <article class="panel upcoming-reservations"><div class="panel-heading"><div><h2>Reservas programadas</h2><p>Eventos activos y disponibilidad comprometida</p></div><label class="search-box"><span data-icon="search"></span><input type="search" id="reservationSearch" placeholder="Buscar cliente o evento..." aria-label="Buscar reserva"></label></div><div class="table-scroll"><table><thead><tr><th>CLIENTE</th><th>EVENTO</th><th>FECHA</th><th>ARTÍCULOS</th><th>VALOR</th><th>ESTADO</th></tr></thead><tbody id="reservationRows"></tbody></table></div></article>
+        </section>
+
+        <section class="page-view" id="page-pagos">
+          <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span> CONTROL FINANCIERO</div><h1>Pagos</h1><p>Actualiza el estado de pago y mantén tus cuentas al día.</p></div></div>
+          <div class="payment-summary" id="paymentSummary"></div>
+          <article class="panel"><div class="panel-heading"><div><h2>Seguimiento de pagos</h2><p>Cambia el estado según los pagos recibidos.</p></div><label class="search-box"><span data-icon="search"></span><input type="search" id="paymentSearch" placeholder="Buscar cliente o código..." aria-label="Buscar pago"></label></div><div class="table-scroll"><table><thead><tr><th>REFERENCIA</th><th>CLIENTE</th><th>EVENTO</th><th>FECHA</th><th>VALOR TOTAL</th><th>ESTADO DE PAGO</th><th>ACTUALIZAR</th></tr></thead><tbody id="paymentRows"></tbody></table></div></article>
+          <div class="local-note"><span>ⓘ</span> Los cambios se guardan automáticamente en este navegador. No se procesa ningún pago real.</div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div class="mobile-scrim" id="mobileScrim"></div>
+  <nav class="bottom-nav" aria-label="Navegación móvil">
+    <button class="bottom-nav-link active" data-page="dashboard"><span data-icon="dashboard"></span>Inicio</button>
+    <button class="bottom-nav-link" data-page="inventario"><span data-icon="inventory"></span>Inventario</button>
+    <button class="bottom-nav-link" data-page="reservas"><span data-icon="calendar"></span>Calendario</button>
+    <button class="bottom-nav-link" data-page="cotizaciones"><span data-icon="quote"></span>Cotizador</button>
+  </nav>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="appDialog" class="app-dialog"><form method="dialog"><button class="dialog-close" aria-label="Cerrar">×</button></form><div id="dialogContent"></div></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
